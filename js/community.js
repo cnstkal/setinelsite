@@ -12,7 +12,7 @@ function ensureActions(){
  const header=$('header')||$('.header-top')||$('.header-search');
  if(!header||$('#sentinel-extra-actions'))return;
  const actions=document.createElement('div');actions.id='sentinel-extra-actions';actions.className='sentinel-extra-actions';
- actions.innerHTML='<a href="#community">커뮤니티</a><button class="primary" data-feature="login">로그인</button>';actions.style.display='flex';actions.style.visibility='visible';actions.style.opacity='1';
+ actions.innerHTML='<button class="primary" data-feature="login">로그인</button>';actions.style.display='flex';actions.style.visibility='visible';actions.style.opacity='1';
  const util=$('.header-top .container',header)||$('.header-top',header)||header;util.appendChild(actions);
 }
 function open(title,subtitle,content){
