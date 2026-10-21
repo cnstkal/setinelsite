@@ -625,9 +625,7 @@ var PAGES=['community','staff-community','staff-chat'];
 function util(){
   var u=$('nav.util'); if(!u) return;
   var m=me();
-  u.innerHTML = m
-    ? '<span class="au-name">'+esc(m.name)+'님</span><button type="button" data-au="logout">로그아웃</button>'
-    : '<button type="button" data-au="login">로그인</button>';
+  u.innerHTML = '';
 }
 
 function menu(){
