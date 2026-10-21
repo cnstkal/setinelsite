@@ -61,7 +61,7 @@ document.addEventListener('click',e=>{const f=e.target.closest('[data-feature]')
 
 })();
 
-/* 메뉴 시작점=헤더 콘텐츠 왼쪽 끝, 끝점=검색창 오른쪽 끝 (데스크톱) */
+/* 메뉴 시작점=화면 왼쪽 끝, 끝점=검색창 오른쪽 끝 (데스크톱) */
 (function(){
  function alignNav(){
   var nav=document.querySelector('.main-nav .nav-inner');
@@ -69,7 +69,7 @@ document.addEventListener('click',e=>{const f=e.target.closest('[data-feature]')
   var sf=document.querySelector('.header-top .search-form');
   if(!nav||!brand||!sf)return;
   if(window.innerWidth<1101){nav.style.marginLeft='';nav.style.width='';return;}
-  var L=nav.parentElement.getBoundingClientRect().left;
+  var L=0;
   var R=sf.getBoundingClientRect().right;
   var P=nav.parentElement.getBoundingClientRect().left;
   nav.style.marginLeft=(L-P)+'px';
