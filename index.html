@@ -572,6 +572,53 @@ nav.util .au-name{font-size:13px;margin-right:4px}
 .au-chat{height:360px;overflow:auto;border:1px solid #e3e8ef;border-radius:8px;padding:12px;margin-bottom:10px}
 .au-chat div{margin-bottom:8px}.au-chat small{color:#68798b;margin-left:6px}
 #auChatForm{display:flex;gap:8px}
+/* 상단 바 / 카테고리 바 */
+.header-top{background:#f1f3f6}
+.header-top .util a,.header-top .util button{color:#3a4a5c}
+.main-nav{background:#0d2b4e;border:0}
+.main-nav .nav-trigger{color:#fff;font-weight:700;font-size:16px}
+.main-nav .nav-item{border-right:1px solid rgba(255,255,255,.15)}
+.main-nav .nav-item:last-of-type{border-right:0}
+.search-form{border:2px solid #0d2b4e}
+.search-form button{background:#0d2b4e;color:#fff}
+/* 직원 채팅 */
+.st-layout{display:flex;gap:20px;max-width:1280px;margin:0 auto;padding:24px 16px;align-items:stretch}
+.st-side{width:230px;background:#fff;border:1px solid #e3e8ef;flex-shrink:0}
+.st-side .st-title{padding:20px;font-size:18px;font-weight:700;border-bottom:1px solid #e3e8ef;color:#0d2b4e}
+.st-side a{display:block;padding:14px 22px;color:#333;text-decoration:none;font-size:15px;border-bottom:1px solid #f0f2f5}
+.st-side a.active{background:#eaf2ff;color:#1f63d6;font-weight:700}
+.st-chat{flex:1;display:flex;height:680px;border:1px solid #e3e8ef;background:#fff;min-width:0}
+.st-list{width:360px;border-right:1px solid #e3e8ef;display:flex;flex-direction:column}
+.st-lh{padding:18px 20px;font-size:20px;font-weight:700;color:#1d2b3a}
+.st-search{margin:0 16px 12px;height:42px;border:1px solid #dde3ea;padding:0 14px;font-size:14px;border-radius:6px;box-sizing:border-box}
+.st-tabs{display:flex;border-bottom:1px solid #e3e8ef;font-size:14px;color:#68798b}
+.st-tabs span{flex:1;text-align:center;padding:12px 0}
+.st-tabs span.on{color:#1f63d6;font-weight:700;border-bottom:2px solid #1f63d6}
+.st-rooms{overflow:auto;flex:1}
+.st-room-row{display:flex;gap:12px;padding:14px 16px;cursor:pointer;border-bottom:1px solid #f0f2f5}
+.st-room-row:hover{background:#f8fafc}
+.st-room-row.on{background:#eef4fd}
+.st-av{width:44px;height:44px;border-radius:50%;background:#d7dde5;display:flex;align-items:center;justify-content:center;font-weight:700;color:#4a5a6c;flex-shrink:0}
+.st-info{flex:1;min-width:0}
+.st-info b{display:block;font-size:15px;color:#1d2b3a}
+.st-info b i{font-style:normal;font-size:12px;color:#68798b;margin-left:4px;font-weight:400}
+.st-info small{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#68798b;font-size:13px;margin-top:4px}
+.st-meta{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.st-meta small{color:#68798b;font-size:12px}
+.st-badge{background:#e53935;color:#fff;border-radius:10px;padding:1px 7px;font-size:12px}
+.st-room{flex:1;display:flex;flex-direction:column;background:#dfe6ef;min-width:0}
+.st-rh{background:#fff;padding:16px 20px;border-bottom:1px solid #e3e8ef;font-size:16px;font-weight:700;color:#1d2b3a}
+.st-rh span{color:#68798b;font-size:13px;margin-left:8px;font-weight:400}
+.st-msgs{flex:1;overflow:auto;padding:20px;display:flex;flex-direction:column;gap:14px}
+.st-msg{display:flex;flex-direction:column;align-items:flex-start;max-width:70%}
+.st-msg b{font-size:13px;color:#333;margin-bottom:4px}
+.st-bub{background:#fff;padding:12px 16px;border-radius:12px;font-size:15px;line-height:1.5;color:#1d2b3a}
+.st-msg small{color:#68798b;font-size:12px;margin-top:4px}
+.st-msg.me{align-self:flex-end;align-items:flex-end}
+.st-msg.me .st-bub{background:#2f7bf0;color:#fff}
+#auChatForm.st-input{display:flex;gap:10px;padding:14px;background:#fff;border-top:1px solid #e3e8ef}
+.st-input input{flex:1;height:46px;border:1px solid #dde3ea;border-radius:24px;padding:0 18px;font-size:14px}
+.st-input button{background:#2f7bf0;color:#fff;border:0;border-radius:24px;padding:0 22px;font-weight:700;cursor:pointer}
 .cm-stat{display:inline-flex;gap:18px;background:#f3f6fb;border:1px solid #e3e8ef;padding:12px 18px;font-size:15px;color:#333;margin-bottom:14px}
 .cm-stat b{color:#1f63d6;margin-left:6px}
 .cm-tools{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
@@ -697,7 +744,7 @@ function postsOf(k){
 }
 var openPost=null, searchQ={}, pageState={};
 var COMM_SIDE='<a class="active" href="#community">자유게시판</a><a href="#notice">공지사항</a><a href="#faq">자주 묻는 질문</a><a href="#guidance">이용 안내</a>';
-var STAFF_SIDE='<a class="active" href="#staff-community">직원 전용 커뮤니티</a><a href="#staff-chat">직원 전용 채팅</a>';
+var STAFF_SIDE='<a class="active" href="#staff-community">직원 커뮤니티</a><a href="#staff-chat">직원 채팅</a><a href="#notice">공지사항</a><a href="#rules">업무 자료실</a>';
 function board(k){
   return '<div data-board="'+k+'">'
     +'<div class="cm-stat"><span>전체글 <b class="cm-total">0</b></span><span>오늘 <b class="cm-today">0</b></span></div>'
@@ -718,10 +765,72 @@ function cmPage(id,key,title,desc,side){
     +'<div><div class="content-head"><h1>'+title+'</h1><p>'+desc+'</p></div><div class="content-body">'+board(key)+'</div></div></div>';
   $('#main').appendChild(s);
 }
+var ROOMS=[
+  {id:'r1',name:'현장1팀',n:8,unread:2,msgs:[
+    {a:'이도현',m:'지금 출동지 근처 진입했습니다.',t:'오후 4:03'},
+    {a:'최민수',m:'현장 상황 사진 공유 부탁드립니다.',t:'오후 4:05'},
+    {a:'나',m:'지금 도착했습니다.',t:'오후 4:08',me:true},
+    {a:'정유진',m:'안전 확인하고 바로 무전 주세요.',t:'오후 4:10'},
+    {a:'이도현',m:'알겠습니다.',t:'오후 4:11'},
+    {a:'나',m:'현장 사진은 정리되는대로 올리겠습니다.',t:'오후 4:12',me:true}]},
+  {id:'r2',name:'대응지원팀',n:6,unread:0,msgs:[{a:'운영지기',m:'내일 회의 자료 업로드했습니다.',t:'오후 3:58'}]},
+  {id:'r3',name:'김성현 매니저',n:0,unread:0,msgs:[
+    {a:'김성현',m:'야간 순찰표 확인 부탁드립니다.',t:'오후 2:20'},
+    {a:'나',m:'확인했습니다. 감사합니다.',t:'오후 2:34',me:true}]},
+  {id:'r4',name:'운영지원팀',n:12,unread:0,msgs:[{a:'운영지원팀',m:'다들 수고하셨습니다.',t:'오후 1:17'}]},
+  {id:'r5',name:'교육훈련팀',n:5,unread:0,msgs:[{a:'교육훈련팀',m:'이번 주 훈련 일정 공유드립니다.',t:'오전 10:21'}]}
+];
+var curRoom='r1';
+function nowT(){return new Date().toLocaleTimeString('ko-KR',{hour:'numeric',minute:'2-digit'})}
+function roomMsgs(id){
+  var v=J('ssa_room_'+id,null);
+  if(!v){
+    var r=ROOMS.filter(function(x){return x.id===id})[0];
+    v=(r?r.msgs:[]).map(function(x){return Object.assign({},x)});
+    S('ssa_room_'+id,v);
+  }
+  return v;
+}
+function chatPage(){
+  if($('#staff-chat')) return;
+  var sec=document.createElement('section');
+  sec.className='page'; sec.id='staff-chat';
+  sec.innerHTML='<div class="breadcrumb"><div class="container"><a href="#home">홈</a><span>›</span><a href="#staff-community">직원 전용</a><span>›</span><strong>직원 채팅</strong></div></div>'
+    +'<div class="st-layout"><aside class="st-side"><div class="st-title">직원 전용</div>'
+    +'<a href="#staff-community">직원 커뮤니티</a><a class="active" href="#staff-chat">직원 채팅</a><a href="#notice">공지사항</a><a href="#rules">업무 자료실</a></aside>'
+    +'<div class="st-chat"><div class="st-list"><div class="st-lh">직원 채팅</div>'
+    +'<input class="st-search" placeholder="대화방 또는 이름을 검색하세요.">'
+    +'<div class="st-tabs"><span class="on">전체</span><span>안 읽은 채팅</span><span>즐겨찾기</span></div>'
+    +'<div class="st-rooms" data-rooms></div></div>'
+    +'<div class="st-room"><div class="st-rh" data-rhead></div><div class="st-msgs" id="auChat"></div>'
+    +'<form id="auChatForm" class="st-input"><input name="m" placeholder="메시지를 입력하세요." autocomplete="off" required><button type="submit">전송</button></form></div>'
+    +'</div></div>';
+  $('#main').appendChild(sec);
+}
+function drawChat(){
+  var rl=$('[data-rooms]'); if(!rl) return;
+  var unread=J('ssa_unread',{});
+  rl.innerHTML=ROOMS.map(function(r){
+    var ms=roomMsgs(r.id), last=ms[ms.length-1]||{m:'',t:''};
+    var u=unread[r.id]!=null?unread[r.id]:(r.unread||0);
+    return '<div class="st-room-row'+(r.id===curRoom?' on':'')+'" data-room="'+r.id+'">'
+      +'<div class="st-av">'+esc(r.name.charAt(0))+'</div>'
+      +'<div class="st-info"><b>'+esc(r.name)+(r.n?'<i>'+r.n+'</i>':'')+'</b><small>'+esc(last.m)+'</small></div>'
+      +'<div class="st-meta"><small>'+esc(last.t)+'</small>'+(u?'<span class="st-badge">'+u+'</span>':'')+'</div></div>';
+  }).join('');
+  var cr=ROOMS.filter(function(r){return r.id===curRoom})[0];
+  $('[data-rhead]').innerHTML='<b>'+esc(cr.name)+'</b><span>멤버 '+cr.n+'명</span>';
+  var box=$('#auChat');
+  box.innerHTML=roomMsgs(curRoom).map(function(m){
+    return m.me ? '<div class="st-msg me"><div class="st-bub">'+esc(m.m)+'</div><small>'+esc(m.t)+'</small></div>'
+      : '<div class="st-msg"><b>'+esc(m.a)+'</b><div class="st-bub">'+esc(m.m)+'</div><small>'+esc(m.t)+'</small></div>';
+  }).join('');
+  box.scrollTop=box.scrollHeight;
+}
 function pages(){
   cmPage('community','ssa_cm2','자유게시판','센티넬과 가이드, 그리고 일상에 관한 이야기를 나누는 공간입니다.',COMM_SIDE);
   cmPage('staff-community','ssa_scm2','직원 전용 커뮤니티','직원 로그인 회원만 열람·작성할 수 있습니다.',STAFF_SIDE);
-  page('staff-chat','직원 전용 채팅','직원 간 내부 채팅입니다.','<div class="au-box"><div class="au-chat" id="auChat"></div><form id="auChatForm"><input name="m" placeholder="메시지 입력" autocomplete="off" required><button class="rp-btn primary">전송</button></form></div>');
+  chatPage();
 }
 function rowHtml(k,p,num){
   var n=p.n?'<span class="cm-n">['+p.n+']</span>':'';
@@ -760,8 +869,7 @@ function draw(){
     if(pages>1){ for(var i=1;i<=pages;i++) pb+='<button type="button" class="'+(i===pg?'on':'')+'" data-page="'+k+'|'+i+'">'+i+'</button>'; }
     pager.innerHTML=pb;
   });
-  var c=$('#auChat');
-  if(c){ c.innerHTML=J('ssa_chat',[]).map(function(m){return '<div><b>'+esc(m.a)+'</b><small>'+m.d+'</small><br>'+esc(m.m)+'</div>'}).join(''); c.scrollTop=c.scrollHeight; }
+  drawChat();
 }
 
 function route(){
@@ -810,6 +918,8 @@ function refresh(){
 }
 
 document.addEventListener('click',function(e){
+  var rr=e.target.closest('[data-room]');
+  if(rr){ curRoom=rr.getAttribute('data-room'); var un=J('ssa_unread',{}); un[curRoom]=0; S('ssa_unread',un); draw(); return; }
   var pgb=e.target.closest('[data-page]');
   if(pgb){ var pp=pgb.getAttribute('data-page').split('|'); pageState[pp[0]]=Number(pp[1]); draw(); window.scrollTo(0,0); return; }
   var op=e.target.closest('[data-open]');
@@ -880,9 +990,9 @@ document.addEventListener('submit',function(e){
   if(f.id==='auChatForm'){
     e.preventDefault();
     if(!isStaff()) return;
-    var msg=new FormData(f).get('m');
-    var q=J('ssa_chat',[]); q.push({m:msg,a:me().name,d:new Date().toLocaleTimeString('ko-KR')});
-    S('ssa_chat',q.slice(-200)); f.reset(); draw();
+    var msg=String(new FormData(f).get('m')||'').trim(); if(!msg) return;
+    var rm=roomMsgs(curRoom); rm.push({a:me().name,m:msg,t:nowT(),me:true});
+    S('ssa_room_'+curRoom,rm); f.reset(); draw();
   }
 });
 
