@@ -617,6 +617,7 @@ nav.util .au-name{font-size:13px;margin-right:4px}
 .search-form button{background:#0d2b4e;color:#fff}
 /* 직원 채팅 */
 .pf-main{flex:1;min-width:0}.pf-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}.pf-head h1{margin:0 0 4px;font-size:26px;color:#0d2b4e}.pf-head p{margin:0;color:#667;font-size:14px}.pf-btn{border:1px solid #cfd6df;background:#fff;padding:10px 16px;cursor:pointer}.pf-card{background:#fff;border:1px solid #e3e8ef;padding:18px;margin-bottom:14px}.pf-card h3{margin:0 0 10px;font-size:16px;color:#0d2b4e}.pf-top{display:flex;gap:22px;flex-wrap:wrap}.pf-ph{width:160px;height:160px;background:linear-gradient(135deg,#1c2a3d,#4a5a70);color:#fff;font-size:60px;display:flex;align-items:center;justify-content:center}.pf-info{flex:1;min-width:240px}.pf-info h2{margin:0 0 8px;font-size:24px}.pf-info small{font-size:14px;color:#667;font-weight:400}.pf-ct{flex:1;min-width:240px;border-left:1px solid #e3e8ef;padding-left:22px}.pf-r{display:flex;gap:16px;padding:7px 0;font-size:14px}.pf-r span{width:90px;color:#667;flex-shrink:0}.pf-r b{font-weight:400}.pf-quick{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-bottom:14px}.pf-quick a{background:#fff;border:1px solid #e3e8ef;padding:14px;font-weight:700;color:#0d2b4e;display:block}.pf-quick small{display:block;font-weight:400;color:#667;margin-top:3px}.pf-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}.pf-cols .pf-r span{width:auto;flex:1}.pf-bd{background:#e33;color:#fff;border-radius:10px;padding:1px 7px;font-size:12px;font-style:normal}@media(max-width:800px){.pf-cols{grid-template-columns:1fr}.pf-ct{border:0;padding:0}}
+.wk-cards{display:grid;grid-template-columns:2fr 1.2fr 1.2fr 1.2fr;gap:12px;margin-bottom:14px}.wk-c{background:#fff;border:1px solid #e3e8ef;padding:18px;position:relative}.wk-c small{font-weight:700;color:#222}.wk-c h2{margin:8px 0 4px;font-size:21px;color:#0d2b4e}.wk-c span{color:#667;font-size:14px}.wk-org .pf-btn{position:absolute;right:14px;bottom:14px;padding:7px 12px}.wk-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.wk-top h3{margin:0}.wk-top>span{color:#556;font-size:14px}.wk-week{display:grid;grid-template-columns:repeat(7,1fr);border:1px solid #e3e8ef;text-align:center;font-size:13px}.wk-col{padding:12px 4px;border-right:1px solid #e3e8ef;cursor:pointer;line-height:1.9}.wk-col:last-child{border:0}.wk-col.on{background:#f4f8ff}.wk-col small{display:block;color:#667}.wk-d i{display:inline-block;background:#256ef4;color:#fff;border-radius:12px;padding:0 6px;font-style:normal}.wk-d.sat{color:#256ef4}.wk-d.sun{color:#d43c3c}.wk-t{display:inline-block;padding:1px 14px;font-size:13px}.wk-t.b{background:#e6f0ff;color:#1a5fd0}.wk-t.n{background:#eef1f5;color:#333}.wk-t.g{background:#e3e6ea;color:#333}.wk-t.r{background:#fde8e8;color:#d43c3c}.wk-dt{display:flex;gap:10px;align-items:center;margin-bottom:6px}.wk-lv{display:flex;align-items:center;gap:14px;flex-wrap:wrap}.wk-lv h3{margin:0;width:100%}.wk-bar{flex:1;min-width:120px;height:8px;background:#e3e8ef;border-radius:4px}.wk-bar i{display:block;height:100%;background:#256ef4;border-radius:4px}.wk-lv b{color:#256ef4}.wk-tabs{display:flex;gap:16px}.wk-tabs a{cursor:pointer;padding-bottom:4px;color:#667}.wk-tabs a.on{color:#256ef4;border-bottom:2px solid #256ef4}.wk-h{display:flex;gap:12px;align-items:center;padding:11px 0;border-bottom:1px solid #eef1f5;font-size:13px}.wk-h span{color:#556;width:130px;flex-shrink:0}.wk-h em{font-style:normal;background:#eef1f5;padding:2px 12px;width:70px;text-align:center;flex-shrink:0}.wk-h em.r{background:#fde8e8;color:#d43c3c}.wk-h b{font-weight:400;flex:1}.wk-more{text-align:center;color:#667;margin:12px 0 0}@media(max-width:800px){.wk-cards{grid-template-columns:1fr 1fr}.wk-week{grid-template-columns:repeat(2,1fr)}}
 .st-layout{display:flex;gap:20px;max-width:1280px;margin:0 auto;padding:24px 16px;align-items:stretch}
 .st-side{width:230px;background:#fff;border:1px solid #e3e8ef;flex-shrink:0}
 .st-side .st-title{padding:20px;font-size:18px;font-weight:700;border-bottom:1px solid #e3e8ef;color:#0d2b4e}
@@ -725,7 +726,7 @@ function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&am
 var STAFF={'SSA-0001':'staff1234','SSA-0002':'staff1234','1234':'1234'};
 function me(){return J('ssa_auth',null)}
 function isStaff(){var m=me();return !!m && m.role==='staff'}
-var PAGES=['community','secret','staff-community','staff-chat','profile'];
+var PAGES=['community','secret','staff-community','staff-chat','profile','work'];
 
 function util(){
   var u=$('#topBarLinks'); if(!u) return;
@@ -867,7 +868,7 @@ function drawChat(){
 function profilePage(){
   if($('#profile')) return;
   var sec=document.createElement('section'); sec.className='page'; sec.id='profile';
-  var side=['내 프로필','내 소속 정보','근무 정보','교육·훈련 이력','자격 및 등록','공지 및 알림','보안 설정'].map(function(t,i){return '<a'+(i?'':' class="active"')+' href="javascript:void(0)">'+t+(t==='공지 및 알림'?' <i class="pf-bd">3</i>':'')+'</a>'}).join('');
+  var side=pfSide('profile');
   var rows=function(a){return a.map(function(r){return '<div class="pf-r"><span>'+r[0]+'</span><b>'+r[1]+'</b></div>'}).join('')};
   sec.innerHTML='<div class="breadcrumb"><div class="container"><a href="#home">홈</a><span>›</span><a href="javascript:void(0)">마이페이지</a><span>›</span><strong>내 프로필</strong></div></div>'
   +'<div class="st-layout"><aside class="st-side"><div class="st-title">마이페이지</div>'+side+'</aside>'
@@ -875,18 +876,52 @@ function profilePage(){
   +'<div class="pf-card pf-top"><div class="pf-ph">👤</div><div class="pf-info"><h2>박재민 <small data-pf-id></small></h2>'
   +rows([['소속','수도권지부 제1대응팀'],['직급','센티넬 대원'],['근무 형태','정규직'],['입사일','2023. 03. 02.']])+'</div>'
   +'<div class="pf-ct">'+rows([['사내 이메일','jaemin.park@ssa.go.kr'],['사내 연락처','02-710-1047'],['근무지','수도권지부 (서울특별시)']])+'</div></div>'
-  +'<div class="pf-quick"><a>근무 일정<small>이번 주 근무 일정 확인</small></a><a>교육·훈련 이력<small>이수한 교육 조회</small></a><a>자격 및 등록<small>센티넬 등록 정보 확인</small></a><a>보안 설정<small>비밀번호·2차 인증 관리</small></a></div>'
-  +'<div class="pf-cols"><div class="pf-card"><h3>내 소속 정보</h3>'+rows([['팀명','수도권지부 제1대응팀'],['팀장','이도현'],['팀원','총 8명'],['주요 업무','현장 대응, 센티넬 지원, 사고 조사']])+'</div>'
-  +'<div class="pf-card"><h3>최근 공지</h3>'+rows([['[안내] 현장 출동 시 개인 보호 규정 강화 안내','2026. 10. 21.'],['2026년 하반기 정기 교육 일정 안내','2026. 10. 20.'],['수도권지부 청사 출입 절차 변경 안내','2026. 10. 18.']])+'</div></div>'
-  +'<div class="pf-card"><h3>이번 주 근무 일정</h3>'+rows([['10. 21. (수)','주간 근무 · 09:00 - 18:00 · 수도권지부'],['10. 22. (목)','현장 지원 · 서울 강남구'],['10. 23. (금)','휴무']])+'</div></div></div>';
+  +'<div class="pf-quick"><a href="#work">근무 정보<small>이번 주 근무 일정 확인</small></a></div></div></div>';
   var f=$('footer'); f&&f.parentNode?f.parentNode.insertBefore(sec,f):document.body.appendChild(sec);
 }
 function pfFill(){var e=$('[data-pf-id]'),m=me(); if(e&&m) e.textContent=m.id||''}
+function pfSide(a){return [['profile','내 프로필'],['work','근무 정보']].map(function(x){return '<a'+(x[0]===a?' class="active"':'')+' href="#'+x[0]+'">'+x[1]+'</a>'}).join('')}
+var WKN=['월','화','수','목','금','토','일'],WKS=[['주간 근무','09:00 - 18:00','수도권지부 청사','b','09:00 - 18:00 (휴게 1시간)','내부 행정 업무, 보고서 작성'],['현장 지원','10:00 - 19:00','서울 강남구 일대','b','10:00 - 19:00 (휴게 1시간)','현장 지원, 센티넬 보조'],['사고 조사','08:30 - 17:30','서울 마포구','b','08:30 - 17:30 (휴게 1시간)','사고 현장 조사, 증거 수집'],['행정 업무','09:00 - 18:00','수도권지부 청사','n','09:00 - 18:00 (휴게 1시간)','내부 행정 업무, 보고서 작성, 회의 참석'],['야간 출동 대기','18:00 - 익일 09:00','비상근무 (대기)','g','18:00 - 익일 09:00','비상 출동 대기'],['휴무','','','r','-','-'],['휴무','','','r','-','-']],wkSel=-1,wkTab='전체';
+var WKH=[['10. 22. (화)','현장 지원','서울 강남구 일대','현장'],['10. 18. (금)','출동','서울 영등포구','출동'],['10. 15. (화)','교육','정기 능력 평가 교육 (온라인)','교육'],['10. 12. (토)','출동','인천 연수구','출동'],['10. 08. (화)','행정','내부 회의 및 자료 정리','행정']];
+function workPage(){
+  if($('#work')) return;
+  var sec=document.createElement('section'); sec.className='page'; sec.id='work';
+  sec.innerHTML='<div class="breadcrumb"><div class="container"><a href="#home">홈</a><span>›</span><a href="javascript:void(0)">마이페이지</a><span>›</span><strong>근무 정보</strong></div></div>'
+  +'<div class="st-layout"><aside class="st-side"><div class="st-title">마이페이지</div>'+pfSide('work')+'</aside><div class="pf-main" id="wkMain"></div></div>';
+  var f=$('footer'); f&&f.parentNode?f.parentNode.insertBefore(sec,f):document.body.appendChild(sec);
+}
+function wkDraw(){
+  var box=$('#wkMain'); if(!box) return;
+  var now=new Date(), dow=(now.getDay()+6)%7, mon=new Date(now.getFullYear(),now.getMonth(),now.getDate()-dow), sun=new Date(mon.getFullYear(),mon.getMonth(),mon.getDate()+6);
+  if(wkSel<0) wkSel=dow;
+  var m=me()||{}, y=now.getFullYear(), z=function(n){return n<10?'0'+n:n};
+  var fmt=function(d){return d.getFullYear()+'. '+(d.getMonth()+1)+'. '+d.getDate()+'.'};
+  var cols=WKS.map(function(w,i){var d=new Date(mon.getFullYear(),mon.getMonth(),mon.getDate()+i),c=i===5?' sat':i===6?' sun':'';
+    return '<div class="wk-col'+(i===wkSel?' on':'')+'" data-wd="'+i+'"><div class="wk-d'+c+'">'+(d.getMonth()+1)+'. '+(i===dow?'<i>'+d.getDate()+'.</i>':d.getDate()+'.')+' ('+WKN[i]+')</div><span class="wk-t '+w[3]+'">'+w[0]+'</span><div>'+(w[1]||'-')+'</div><small>'+w[2]+'</small></div>'}).join('');
+  var sd=new Date(mon.getFullYear(),mon.getMonth(),mon.getDate()+wkSel), w=WKS[wkSel];
+  var hist=WKH.filter(function(h){return wkTab==='전체'||h[3]===wkTab||(wkTab==='출동'&&h[3]==='현장')}).map(function(h){return '<div class="wk-h"><span>'+y+'. '+h[0]+'</span><em class="'+(h[1]==='출동'?'r':'')+'">'+h[1]+'</em><b>'+h[2]+'</b><i>›</i></div>'}).join('');
+  box.innerHTML='<div class="pf-head"><div><h1>근무 정보</h1><p>현재 소속된 부서의 근무 일정 및 업무 정보를 확인할 수 있습니다.</p></div><button type="button" class="pf-btn" data-wk-alert>🖨 근무확인서 출력</button></div>'
+  +'<div class="wk-cards"><div class="wk-c wk-org"><small>소속</small><h2>수도권지부 제1대응팀</h2><span>서울특별시 · 수도권지부</span><button type="button" class="pf-btn" data-wk-alert>조직도 보기</button></div>'
+  +'<div class="wk-c"><small>직급</small><h2>센티넬 대원</h2><span>정규직</span></div>'
+  +'<div class="wk-c"><small>사번</small><h2>'+esc(m.id||'STA-2023-1047')+'</h2></div>'
+  +'<div class="wk-c"><small>입사일</small><h2>2023. 03. 02.</h2></div></div>'
+  +'<div class="pf-card"><div class="wk-top"><h3>이번 주 근무 일정</h3><span>‹ &nbsp; '+fmt(mon)+' (월) ~ '+fmt(sun)+' (일) &nbsp; ›</span></div><div class="wk-week">'+cols+'</div></div>'
+  +'<div class="pf-cols wk-bot"><div><div class="pf-card"><div class="wk-top"><h3>근무 상세 정보</h3><button type="button" class="pf-btn" data-wk-alert>✎ 일정 수정 신청</button></div>'
+  +'<div class="wk-dt"><b>'+fmt(sd)+' ('+WKN[wkSel]+')</b><span class="wk-t '+w[3]+'">'+w[0]+'</span></div>'
+  +'<div class="pf-r"><span>근무 시간</span><b>'+w[4]+'</b></div><div class="pf-r"><span>근무지</span><b>'+(w[2]||'-')+'</b></div><div class="pf-r"><span>주요 업무</span><b>'+w[5]+'</b></div><div class="pf-r"><span>비고</span><b>-</b></div></div>'
+  +'<div class="pf-card wk-lv"><h3>연차·휴가 현황</h3><div class="wk-bar"><i style="width:53%"></i></div><span>사용 <b>8일</b> / 총 15일</span><button type="button" class="pf-btn" data-wk-alert>연차 신청하기</button></div></div>'
+  +'<div class="pf-card"><div class="wk-top"><h3>근무 내역</h3><div class="wk-tabs">'+['전체','출동','행정','교육'].map(function(t){return '<a data-wt="'+t+'"'+(t===wkTab?' class="on"':'')+'>'+t+'</a>'}).join('')+'</div></div>'+(hist||'<p>내역이 없습니다.</p>')+'<p class="wk-more">더보기 +</p></div></div>';
+}
+document.addEventListener('click',function(e){
+  var d=e.target.closest('[data-wd]'); if(d){ wkSel=Number(d.getAttribute('data-wd')); wkDraw(); return; }
+  var t=e.target.closest('[data-wt]'); if(t){ wkTab=t.getAttribute('data-wt'); wkDraw(); return; }
+  if(e.target.closest('[data-wk-alert]')) alert('준비 중인 기능입니다.');
+});
 function pages(){
   cmPage('community','ssa_cm2','자유게시판','센티넬과 가이드, 그리고 일상에 관한 이야기를 나누는 공간입니다.',COMM_SIDE);
   cmPage('secret','ssa_secret','비밀게시판','로그인한 회원만 열람·작성할 수 있습니다.',SECRET_SIDE);
   cmPage('staff-community','ssa_scm2','직원 전용 커뮤니티','직원 로그인 회원만 열람·작성할 수 있습니다.',STAFF_SIDE);
-  chatPage(); profilePage();
+  chatPage(); profilePage(); workPage();
 }
 function rowHtml(k,p,num){
   var n=p.n?'<span class="cm-n">['+p.n+']</span>':'';
@@ -973,7 +1008,7 @@ function route(){
   if(h!=='community' && h!=='secret' && !isStaff()){ alert('직원 로그인 후 이용할 수 있습니다.'); location.hash='#home'; return; }
   $$('.page.active').forEach(function(p){p.classList.remove('active')});
   var t=$('#'+h); if(t) t.classList.add('active');
-  openPost=null; window.scrollTo(0,0); draw(); pfFill();
+  openPost=null; window.scrollTo(0,0); draw(); pfFill(); if(h==='work') wkDraw();
 }
 
 /* ---------- 로그인 모달 (스크린샷 디자인) ---------- */
