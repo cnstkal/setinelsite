@@ -44,3 +44,16 @@
 .sentinel-feature-alert{padding:11px 13px;margin-bottom:14px;background:#fff8e8;border:1px solid #ead7a5;color:#75551b;font-size:13px;line-height:1.6}
 .sentinel-feature-empty{padding:28px;text-align:center;color:#64748b;border:1px dashed #cbd5e1}
 @media(max-width:700px){.sentinel-feature-layer{padding:7px;align-items:flex-start}.sentinel-feature-dialog{max-height:96vh}.sentinel-feature-body{padding:13px}.sentinel-feature-head{padding:14px}.sentinel-feature-grid,.sentinel-chat-layout{grid-template-columns:1fr}.sentinel-chat-rooms{border-right:0;border-bottom:1px solid #d9e1e8;display:flex;gap:7px;overflow:auto}.sentinel-chat-rooms button{white-space:nowrap;width:auto;min-width:max-content;margin:0}.sentinel-chat-messages{max-height:45vh}.sentinel-extra-actions{margin:8px 0}.sentinel-feature-head h2{font-size:18px}}
+
+/* ===== 최상단 얇은 바 / 로고줄 흰 배경 / 검색창 오른쪽 ===== */
+.top-bar{background:#eceff3;border-bottom:1px solid #dde2e8}
+.top-bar .container{height:34px;display:flex;justify-content:flex-end;align-items:center;gap:0;font-size:13px;color:#444}
+.top-bar .container a,.top-bar .container span{color:#444;text-decoration:none;padding:0 12px;line-height:1}
+.top-bar .container a+a{border-left:1px solid #b9c0c9}
+.top-bar .container a:hover{color:#174b82;text-decoration:underline}
+.header-top{background:#fff!important}
+.header-top .container{height:102px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.header-top .brand{flex-shrink:0}
+.header-top .header-search{margin-left:auto;width:min(380px,40%);background:#fff!important}
+.header-top .header-search .search-form{width:100%;margin:0}
+.header-top .util{display:none}

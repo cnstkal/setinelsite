@@ -58,5 +58,5 @@ function handleClick(e){
 }
 document.addEventListener('click',e=>{const f=e.target.closest('[data-feature]');if(f&&!modal){const v=f.dataset.feature;if(v==='login')showLogin();else if(v==='community')showCommunity();else if(v==='chat')showChat()}});
 
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ensureActions);else ensureActions();
+
 })();

@@ -30,23 +30,20 @@
 <body>
 <a class="skip" href="#main">본문 바로가기</a><a class="skip" href="#nav">주메뉴 바로가기</a>
 <header>
+ <div class="top-bar"><div class="container" id="topBarLinks"><a href="javascript:void(0)" data-au="login">로그인</a><a href="javascript:void(0)" data-au="join">회원가입</a></div></div>
  <div class="header-top">
   <div class="container">
    <a class="brand" href="#home" aria-label="센티넬안전관리청 누리집 첫 화면">
     <img class="emblem" src="sentinel-logo.jpg" alt="센티넬안전관리청 로고">
     <span><span class="brand-title">센티넬안전관리청</span><span class="brand-en">Sentinel Safety Administration</span></span>
    </a>
+   <div class="header-search"><form class="search-form" id="siteSearch" role="search">
+    <label class="sr-only" for="searchInput">통합검색</label><input id="searchInput" type="search" placeholder="검색어를 입력하세요" autocomplete="off"><button type="submit" aria-label="검색">⌕</button>
+   </form></div>
    <nav class="util" aria-label="유틸리티 메뉴">
     
     
     </nav>
-  </div>
- </div>
- <div class="header-search">
-  <div class="container">
-   <form class="search-form" id="siteSearch" role="search">
-    <label class="sr-only" for="searchInput">통합검색</label><input id="searchInput" type="search" placeholder="검색어를 입력하세요" autocomplete="off"><button type="submit" aria-label="검색">⌕</button>
-   </form>
   </div>
  </div>
     <nav class="main-nav" id="nav" aria-label="주메뉴">
@@ -730,9 +727,9 @@ function isStaff(){var m=me();return !!m && m.role==='staff'}
 var PAGES=['community','secret','staff-community','staff-chat'];
 
 function util(){
-  var u=$('nav.util'); if(!u) return;
+  var u=$('#topBarLinks'); if(!u) return;
   var m=me();
-  u.innerHTML = '';
+  u.innerHTML = m ? '<span>'+(m.name||m.id||'회원')+'님</span><a href="javascript:void(0)" data-au="logout">로그아웃</a>' : '<a href="javascript:void(0)" data-au="login">로그인</a><a href="javascript:void(0)" data-au="join">회원가입</a>';
 }
 
 function menu(){
