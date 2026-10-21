@@ -871,7 +871,7 @@ function profilePage(){
   var side=pfSide('profile');
   var rows=function(a){return a.map(function(r){return '<div class="pf-r"><span>'+r[0]+'</span><b>'+r[1]+'</b></div>'}).join('')};
   sec.innerHTML='<div class="breadcrumb"><div class="container"><a href="#home">홈</a><span>›</span><a href="javascript:void(0)">마이페이지</a><span>›</span><strong>내 프로필</strong></div></div>'
-  +'<div class="st-layout"><aside class="st-side"><div class="st-title">마이페이지</div>'+side+'</aside>'
+  +'<div class="cm-grid"><aside class="side-nav cm-side"><h2>마이페이지</h2>'+side+'</aside>'
   +'<div class="pf-main"><div class="pf-head"><div><h1>내 프로필</h1><p>등록된 정보는 내부 행정 업무와 센티넬 제도 운영을 위해 사용됩니다.</p></div><button type="button" class="pf-btn" data-pf-edit>✎ 프로필 수정</button></div>'
   +'<div class="pf-card pf-top"><div class="pf-ph">👤</div><div class="pf-info"><h2>박재민 <small data-pf-id></small></h2>'
   +rows([['소속','수도권지부 제1대응팀'],['직급','센티넬 대원'],['근무 형태','정규직'],['입사일','2023. 03. 02.']])+'</div>'
@@ -887,7 +887,7 @@ function workPage(){
   if($('#work')) return;
   var sec=document.createElement('section'); sec.className='page'; sec.id='work';
   sec.innerHTML='<div class="breadcrumb"><div class="container"><a href="#home">홈</a><span>›</span><a href="javascript:void(0)">마이페이지</a><span>›</span><strong>근무 정보</strong></div></div>'
-  +'<div class="st-layout"><aside class="st-side"><div class="st-title">마이페이지</div>'+pfSide('work')+'</aside><div class="pf-main" id="wkMain"></div></div>';
+  +'<div class="cm-grid"><aside class="side-nav cm-side"><h2>마이페이지</h2>'+pfSide('work')+'</aside><div class="pf-main" id="wkMain"></div></div>';
   var f=$('footer'); f&&f.parentNode?f.parentNode.insertBefore(sec,f):document.body.appendChild(sec);
 }
 function wkDraw(){
