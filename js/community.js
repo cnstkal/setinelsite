@@ -12,8 +12,8 @@ function ensureActions(){
  const header=$('header')||$('.header-top')||$('.header-search');
  if(!header||$('#sentinel-extra-actions'))return;
  const actions=document.createElement('div');actions.id='sentinel-extra-actions';actions.className='sentinel-extra-actions';
- actions.innerHTML='<a href="#community" data-feature="community">커뮤니티</a><button class="primary" data-feature="login">로그인</button>';
- const util=$('.util',header)||$('.header-top',header)||header;util.appendChild(actions);
+ actions.innerHTML='<a href="#community" data-feature="community">커뮤니티</a><button class="primary" data-feature="login">로그인</button>';actions.style.display='flex';actions.style.visibility='visible';actions.style.opacity='1';
+ const util=$('.header-top .container',header)||$('.header-top',header)||header;util.appendChild(actions);
 }
 function open(title,subtitle,content){
  close();modal=document.createElement('div');modal.className='sentinel-feature-layer';modal.innerHTML='<section class="sentinel-feature-dialog" role="dialog" aria-modal="true" aria-label="'+esc(title)+'"><header class="sentinel-feature-head"><div><h2>'+esc(title)+'</h2><p>'+esc(subtitle)+'</p></div><button class="sentinel-feature-close" data-close>닫기 ✕</button></header><div class="sentinel-feature-body">'+content+'</div></section>';
