@@ -12,7 +12,7 @@ function ensureActions(){
  const header=$('header')||$('.header-top')||$('.header-search');
  if(!header||$('#sentinel-extra-actions'))return;
  const actions=document.createElement('div');actions.id='sentinel-extra-actions';actions.className='sentinel-extra-actions';
- actions.innerHTML='<a href="#community" data-feature="community">커뮤니티</a><button class="primary" data-feature="login">로그인</button>';actions.style.display='flex';actions.style.visibility='visible';actions.style.opacity='1';
+ actions.innerHTML='<a href="#community">커뮤니티</a><button class="primary" data-feature="login">로그인</button>';actions.style.display='flex';actions.style.visibility='visible';actions.style.opacity='1';
  const util=$('.header-top .container',header)||$('.header-top',header)||header;util.appendChild(actions);
 }
 function open(title,subtitle,content){
@@ -57,6 +57,6 @@ function handleClick(e){
  const like=e.target.closest('[data-like]');if(like){const p=state.posts.find(x=>x.id===like.dataset.like);if(p){p.likes++;save(state);showCommunity()}return}
 }
 document.addEventListener('click',e=>{const f=e.target.closest('[data-feature]');if(f&&!modal){const v=f.dataset.feature;if(v==='login')showLogin();else if(v==='community')showCommunity();else if(v==='chat')showChat()}});
-window.addEventListener('hashchange',()=>{if(location.hash==='#community')showCommunity()});
+
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ensureActions);else ensureActions();
 })();
