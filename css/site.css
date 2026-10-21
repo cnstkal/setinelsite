@@ -3180,3 +3180,12 @@ body.photo-admin .guide-admin-bar{display:flex}
 .pf-schedule b.off{background:#fff0f0;color:#d83b3b}
 @media(max-width:1100px){.pf-top{grid-template-columns:125px minmax(0,1fr)}.pf-ph{height:140px}.pf-ct{grid-column:2;border-left:0;border-top:1px solid #e5eaf0;padding:8px 0 0}.pf-lower{grid-template-columns:1fr}.pf-quick{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:700px){.pf-layout{grid-template-columns:1fr;width:calc(100% - 28px);gap:14px;margin-top:14px}.pf-side{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.pf-side h2{grid-column:1/-1}.pf-side a{padding:11px 13px;font-size:13px}.pf-side a.active{padding-left:10px}.pf-head{align-items:flex-start;padding:0 0 14px}.pf-head h1{font-size:24px}.pf-head p{font-size:12px;line-height:1.5}.pf-btn{padding:9px 10px;font-size:12px}.pf-top{grid-template-columns:92px minmax(0,1fr);gap:13px;padding:14px}.pf-ph{height:112px}.pf-ph:before{width:70px;height:70px;top:17px;left:11px;box-shadow:0 65px 0 18px #182e43}.pf-ph small{margin-top:40px}.pf-name h2{font-size:19px}.pf-name{gap:8px}.pf-id{font-size:11px}.pf-info .pf-r{grid-template-columns:70px minmax(0,1fr);gap:6px;font-size:12px}.pf-ct{grid-column:1/-1;padding-top:8px}.pf-ct .pf-r{grid-template-columns:115px minmax(0,1fr);font-size:12px;padding:8px 0}.pf-quick{padding:8px;gap:8px}.pf-quick a{padding:10px;min-height:62px}.pf-quick b{font-size:12px}.pf-quick small{font-size:11px;padding-right:12px}.pf-lower{gap:10px}.pf-activity{grid-template-columns:45px 1fr;gap:7px}.pf-activity span{grid-column:1/-1}.pf-notice{grid-template-columns:44px minmax(0,1fr);gap:8px}.pf-notice time{grid-column:2}.pf-schedule>div{grid-template-columns:repeat(2,minmax(0,1fr))}.pf-schedule span,.pf-schedule b{padding:7px 3px;font-size:11px}.pf-team{gap:10px;flex-wrap:wrap}.pf-team>.pf-btn{margin-left:0}}
+
+
+/* 마이페이지 목차: 내 프로필 / 근무 정보만 표시 */
+.pf-side{border-radius:15px;box-shadow:0 8px 24px rgba(22,43,68,.08)}
+.pf-side h2{height:80px;box-sizing:border-box;display:flex;align-items:center;padding:0 20px;background:#132f57;font-size:20px}
+.pf-side a{min-height:56px;box-sizing:border-box;padding:15px 20px;border-bottom:1px solid #e1e6ed;font-size:14px;color:#30445d}
+.pf-side a:last-child{border-bottom:0}
+.pf-side a.active{padding-left:17px;background:#f0f5fd;border-left:3px solid #1765ff;color:#1765ff;font-weight:700}
+@media(max-width:700px){.pf-side{border-radius:13px}.pf-side h2{height:auto;min-height:60px;padding:17px 16px}.pf-side a{min-height:48px;padding:12px 16px}.pf-side a.active{padding-left:13px}}
