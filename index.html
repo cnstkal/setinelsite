@@ -572,6 +572,17 @@ nav.util .au-name{font-size:13px;margin-right:4px}
 .au-chat{height:360px;overflow:auto;border:1px solid #e3e8ef;border-radius:8px;padding:12px;margin-bottom:10px}
 .au-chat div{margin-bottom:8px}.au-chat small{color:#68798b;margin-left:6px}
 #auChatForm{display:flex;gap:8px}
+.au-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:14px;color:#68798b}
+.au-wbtn{background:#1b4f84;color:#fff;border:0;border-radius:8px;padding:8px 16px;font-weight:700;cursor:pointer}
+.au-wbox{margin-bottom:16px;border:1px solid #e3e8ef;padding:14px;border-radius:8px}
+.au-row{border-bottom:1px solid #e3e8ef;padding:14px 6px;cursor:pointer}
+.au-row:hover{background:#f5f8fc}
+.au-row b{display:block;font-size:16px;margin-bottom:4px;color:#1d2b3a}
+.au-row small,.au-detail small{color:#68798b;font-size:13px}
+.au-detail{padding:6px 4px}
+.au-detail h3{font-size:20px;margin:16px 0 6px;color:#1d2b3a}
+.au-body{margin-top:18px;line-height:1.7;padding:16px;background:#f9fbfd;border-radius:8px}
+.au-back{background:none;border:1px solid #cfd8e3;border-radius:6px;padding:6px 12px;cursor:pointer;margin-bottom:6px}
 
 .lg-ov{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px}
 .lg-box{background:#fff;width:581px;max-width:100%;max-height:92vh;overflow:auto;border-top:6px solid #256ef4;box-shadow:0 10px 30px rgba(0,0,0,.2)}
@@ -640,8 +651,30 @@ function page(id,title,desc,body){
   s.innerHTML='<div class="breadcrumb"><div class="container"><a href="#home">홈</a><span>›</span><strong>'+title+'</strong></div></div><div class="container pg-wrap"><div class="content-head"><h1>'+title+'</h1><p>'+desc+'</p></div>'+body+'</div>';
   $('#main').appendChild(s);
 }
+var SEED={
+  ssa_cm:[
+    {id:1,t:'가을철 능력 사용 주의 안내',c:'야외 활동 시 주변 장치 위치를 한 번 확인하고 다니세요.\n이상 징후를 보면 활동 신고로 알려 주시면 감사하겠습니다.',a:'운영지기',d:'2026.10.12',v:214},
+    {id:2,t:'ARU 야간 운용 시간대가 헷갈려요',c:'야간에 장치가 켜지는 기준을 공지사항에서 확인했는데, 실제 적용 시간이 궁금합니다. 아시는 분 계시면 알려 주세요.',a:'시민A',d:'2026.10.05',v:98},
+    {id:3,t:'가이드 권익보호 상담 후기',c:'상담 과정이 친절했습니다. 개인정보 처리 안내도 자세히 해 주셔서 안심이 됐어요.',a:'익명',d:'2026.09.20',v:57},
+    {id:4,t:'지역 안전산책 모임 후기',c:'지난 주말 모임에 다녀왔습니다. 자주 가는 산책로의 안내 표지가 잘 정리되어 있었어요.',a:'산책러',d:'2026.09.02',v:41}
+  ],
+  ssa_scm:[
+    {id:1,t:'10월 정기 교육 이수 현황 공유',c:'이수기한이 다가오는 분들은 교육 포털에서 확인 부탁드립니다.',a:'교육운영과',d:'2026.10.15',v:37},
+    {id:2,t:'야간 순찰 교대 일정 조정',c:'다음 주 야간 순찰 교대 일정이 일부 바뀌었습니다. 세부 시간표는 첨부를 참고해 주세요.',a:'상황총괄과',d:'2026.10.09',v:24},
+    {id:3,t:'신규 직원 온보딩 자료 공유',c:'신규 입사자 대상 기본 교육 자료를 정리해 두었습니다. 필요하면 요청해 주세요.',a:'운용기획과',d:'2026.09.30',v:19}
+  ]
+};
+function postsOf(k){
+  var v=J(k,null);
+  if(!v){ v=SEED[k].map(function(x){return Object.assign({},x)}); S(k,v); }
+  return v;
+}
+var openPost=null;
 function board(k){
-  return '<div class="au-box"><form data-bd="'+k+'"><input name="t" placeholder="제목" required><textarea name="c" rows="3" placeholder="내용" required></textarea><button class="rp-btn primary">등록</button></form><div class="au-list" data-list="'+k+'"></div></div>';
+  return '<div class="au-board" data-board="'+k+'">'
+    +'<div class="au-top"><span class="au-count"></span><button type="button" class="au-wbtn" data-wtoggle="'+k+'">글쓰기</button></div>'
+    +'<div class="au-wbox" data-wbox="'+k+'" hidden><form data-bd="'+k+'"><input name="t" placeholder="제목" required><textarea name="c" rows="4" placeholder="내용" required></textarea><button class="rp-btn primary">등록</button></form></div>'
+    +'<div class="au-list" data-list></div><div class="au-detail" data-detail hidden></div></div>';
 }
 function pages(){
   page('community','자유게시판','누구나 볼 수 있습니다. 글쓰기는 로그인 후 가능합니다.',board('ssa_cm'));
@@ -650,9 +683,18 @@ function pages(){
 }
 function draw(){
   ['ssa_cm','ssa_scm'].forEach(function(k){
-    var l=$('[data-list="'+k+'"]'); if(!l) return;
-    var posts=J(k,[]);
-    l.innerHTML = posts.length ? posts.map(function(p){return '<article><b>'+esc(p.t)+'</b><p>'+esc(p.c)+'</p><small>'+esc(p.a)+' · '+p.d+'</small></article>'}).join('') : '<p>게시글이 없습니다.</p>';
+    var root=$('[data-board="'+k+'"]'); if(!root) return;
+    var posts=postsOf(k);
+    var list=root.querySelector('[data-list]'), det=root.querySelector('[data-detail]');
+    root.querySelector('.au-count').textContent='총 '+posts.length+'건';
+    var cur=(openPost && openPost.k===k) ? posts.filter(function(x){return String(x.id)===String(openPost.id)})[0] : null;
+    if(cur){
+      list.hidden=true; det.hidden=false;
+      det.innerHTML='<button type="button" class="au-back" data-back>← 목록으로</button><h3>'+esc(cur.t)+'</h3><small>'+esc(cur.a)+' · '+cur.d+' · 조회 '+cur.v+'</small><div class="au-body">'+esc(cur.c).replace(/\n/g,'<br>')+'</div>';
+    } else {
+      det.hidden=true; list.hidden=false;
+      list.innerHTML = posts.length ? posts.map(function(p){return '<article class="au-row" data-open="'+k+'|'+p.id+'"><b>'+esc(p.t)+'</b><small>'+esc(p.a)+' · '+p.d+' · 조회 '+p.v+'</small></article>'}).join('') : '<p>게시글이 없습니다.</p>';
+    }
   });
   var c=$('#auChat');
   if(c){ c.innerHTML=J('ssa_chat',[]).map(function(m){return '<div><b>'+esc(m.a)+'</b><small>'+m.d+'</small><br>'+esc(m.m)+'</div>'}).join(''); c.scrollTop=c.scrollHeight; }
@@ -664,7 +706,7 @@ function route(){
   if(h!=='community' && !isStaff()){ alert('직원 로그인 후 이용할 수 있습니다.'); location.hash='#home'; return; }
   $$('.page.active').forEach(function(p){p.classList.remove('active')});
   var t=$('#'+h); if(t) t.classList.add('active');
-  window.scrollTo(0,0); draw();
+  openPost=null; window.scrollTo(0,0); draw();
 }
 
 /* ---------- 로그인 모달 (스크린샷 디자인) ---------- */
@@ -704,6 +746,22 @@ function refresh(){
 }
 
 document.addEventListener('click',function(e){
+  var op=e.target.closest('[data-open]');
+  if(op){
+    var parts=op.getAttribute('data-open').split('|');
+    var ps=postsOf(parts[0]);
+    ps.forEach(function(x){ if(String(x.id)===parts[1]) x.v=(x.v||0)+1; });
+    S(parts[0],ps);
+    openPost={k:parts[0],id:parts[1]};
+    draw(); window.scrollTo(0,0); return;
+  }
+  if(e.target.closest('[data-back]')){ openPost=null; draw(); return; }
+  var wt=e.target.closest('[data-wtoggle]');
+  if(wt){
+    if(!me()){ modal('login'); return; }
+    var box=$('[data-wbox="'+wt.getAttribute('data-wtoggle')+'"]');
+    box.hidden=!box.hidden; return;
+  }
   var eye=e.target.closest('[data-lg-eye]');
   if(eye){
     var inp=eye.parentNode.querySelector('input');
@@ -748,8 +806,8 @@ document.addEventListener('submit',function(e){
     e.preventDefault();
     var m=me(); if(!m) return alert('로그인 후 작성할 수 있습니다.');
     var d2={}; new FormData(f).forEach(function(v,kk){d2[kk]=v});
-    var p=J(k,[]); p.unshift({t:d2.t,c:d2.c,a:m.name,d:new Date().toLocaleString('ko-KR')});
-    S(k,p); f.reset(); draw(); return;
+    var p=postsOf(k); p.unshift({id:Date.now(),t:d2.t,c:d2.c,a:m.name,d:new Date().toISOString().slice(0,10).replace(/-/g,'.'),v:0});
+    S(k,p); f.reset(); f.parentNode.hidden=true; draw(); return;
   }
   if(f.id==='auChatForm'){
     e.preventDefault();
