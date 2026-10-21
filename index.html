@@ -870,13 +870,29 @@ function profilePage(){
   var sec=document.createElement('section'); sec.className='page'; sec.id='profile';
   var side=pfSide('profile');
   var rows=function(a){return a.map(function(r){return '<div class="pf-r"><span>'+r[0]+'</span><b>'+r[1]+'</b></div>'}).join('')};
-  sec.innerHTML='<div class="breadcrumb"><div class="container"><a href="#home">홈</a><span>›</span><a href="javascript:void(0)">마이페이지</a><span>›</span><strong>내 프로필</strong></div></div>'
-  +'<div class="cm-grid"><aside class="side-nav cm-side"><h2>마이페이지</h2>'+side+'</aside>'
-  +'<div class="pf-main"><div class="pf-head"><div><h1>내 프로필</h1><p>등록된 정보는 내부 행정 업무와 센티넬 제도 운영을 위해 사용됩니다.</p></div><button type="button" class="pf-btn" data-pf-edit>✎ 프로필 수정</button></div>'
-  +'<div class="pf-card pf-top"><div class="pf-ph">👤</div><div class="pf-info"><h2>박재민 <small data-pf-id></small></h2>'
+  sec.innerHTML='<div class="breadcrumb"><div class="container"><a href="#home">홈</a><span>›</span><a href="#profile">마이페이지</a><span>›</span><strong>내 프로필</strong></div></div>'
+  +'<div class="pf-layout"><aside class="side-nav pf-side"><h2>마이페이지</h2>'+side
+  +'<a href="#training">교육·훈련 이력</a><a href="#certs">자격 및 등록</a><a href="#notices">공지 및 알림 <i class="pf-count">3</i></a><a href="#security">보안 설정</a></aside>'
+  +'<div class="pf-content"><div class="pf-head"><div><h1>내 프로필</h1><p>등록된 정보는 내부 행정 업무와 센티넬 제도 운영을 위해 사용됩니다.</p></div><button type="button" class="pf-btn" data-pf-edit>✎ 프로필 수정</button></div>'
+  +'<div class="pf-card pf-top"><div class="pf-ph" aria-label="프로필 사진"><span>●</span><small>사진</small></div><div class="pf-info"><div class="pf-name"><h2>박재민</h2><span class="pf-id" data-pf-id>STA-2023-1047</span></div>'
   +rows([['소속','수도권지부 제1대응팀'],['직급','센티넬 대원'],['근무 형태','정규직'],['입사일','2023. 03. 02.']])+'</div>'
-  +'<div class="pf-ct">'+rows([['사내 이메일','jaemin.park@ssa.go.kr'],['사내 연락처','02-710-1047'],['근무지','수도권지부 (서울특별시)']])+'</div></div>'
-  +'<div class="pf-quick"><a href="#work">근무 정보<small>이번 주 근무 일정 확인</small></a></div></div></div>';
+  +'<div class="pf-ct">'+rows([['✉　사내 이메일','jaemin.park@ssa.go.kr'],['☎　사내 연락처','02-710-1047'],['⌖　근무지','수도권지부 (서울특별시)']])+'</div></div>'
+  +'<div class="pf-quick">'
+  +'<a href="#work"><b>▦　근무 일정</b><small>이번 주 근무 일정 확인</small><i>›</i></a>'
+  +'<a href="#work"><b>▤　교육·훈련 이력</b><small>이수한 교육 조회</small><i>›</i></a>'
+  +'<a href="#work"><b>♧　자격 및 등록</b><small>센티넬 등록 정보 확인</small><i>›</i></a>'
+  +'<a href="#work"><b>♙　보안 설정</b><small>비밀번호 · 2차 인증 관리</small><i>›</i></a></div>'
+  +'<div class="pf-lower"><section class="pf-card pf-aff"><div class="pf-section-head"><h2>내 소속 정보</h2><a href="#work">더보기 +</a></div>'
+  +'<div class="pf-team"><div class="pf-team-logo"><img src="sentinel-logo.jpg" alt=""></div><div><h3>수도권지부 제1대응팀</h3><p>서울특별시 · 수도권지부</p></div><a class="pf-btn" href="#work">조직도 보기</a></div>'
+  +rows([['팀장','이도현'],['팀원','총 8명'],['주요 업무','현장 대응, 센티넬 지원, 사고 조사']])
+  +'<div class="pf-section-head pf-activity-head"><h2>최근 활동 내역</h2><span>전체　 근무　 교육　 시스템</span></div><div class="pf-activity"><b>근무</b><time>2026. 10. 21. 14:32</time><span>근무 기록이 등록되었습니다.</span></div>'
+  +'<div class="pf-activity"><b>시스템</b><time>2026. 10. 20. 09:10</time><span>직원 포털에 로그인했습니다.</span></div></section>'
+  +'<div class="pf-right"><section class="pf-card"><div class="pf-section-head"><h2>최근 공지</h2><a href="#work">더보기 +</a></div>'
+  +'<div class="pf-notice"><i>필독</i><span>[안내] 현장 출동 시 개인 보호 규정 강화 안내</span><time>2026. 10. 21.</time></div>'
+  +'<div class="pf-notice"><i>교육</i><span>2026년 하반기 정기 교육 일정 안내</span><time>2026. 10. 20.</time></div>'
+  +'<div class="pf-notice"><i class="muted">일반</i><span>수도권지부 청사 출입 절차 변경 안내</span><time>2026. 10. 18.</time></div></section>'
+  +'<section class="pf-card"><div class="pf-section-head"><h2>이번 주 근무 일정</h2><a href="#work">더보기 +</a></div>'
+  +'<div class="pf-schedule"><div><span>10. 21. (월)</span><b>주간 근무</b><span>09:00 - 18:00</span><span>수도권지부</span></div><div><span>10. 22. (화)</span><b>현장 지원</b><span>10:00 - 19:00</span><span>서울 강남구</span></div><div><span>10. 23. (수)</span><b class="off">휴무</b><span>-</span><span>-</span></div></div></section></div></div></div></div>';
   var f=$('footer'); f&&f.parentNode?f.parentNode.insertBefore(sec,f):document.body.appendChild(sec);
 }
 function pfFill(){var e=$('[data-pf-id]'),m=me(); if(e&&m) e.textContent=m.id||''}
