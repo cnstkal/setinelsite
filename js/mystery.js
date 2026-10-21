@@ -299,18 +299,7 @@
   if(!root)return;
   root.insertAdjacentHTML('beforeend',guestbookHtml());
  }
- function homePopup(){
-  if(location.hash&&location.hash!=='#home')return;
-  if(localStorage.getItem('ssa_memorial_popup_hide_date')===new Date().toISOString().slice(0,10))return;
-  if(document.getElementById('memorialAnniversaryPopup'))return;
-  const o=document.createElement('div');o.id='memorialAnniversaryPopup';o.className='mystery-modal memorial-anniversary-popup';
-  o.innerHTML='<div class="mystery-dialog memorial-popup-dialog" role="dialog" aria-modal="true" aria-labelledby="memorialPopupTitle"><div class="mystery-dialog-head"><span class="mystery-classified">추모 안내</span><button type="button" class="mystery-close" aria-label="닫기">×</button></div><div class="mystery-dialog-body"><div class="memorial-popup-mark">追慕</div><p class="memorial-popup-kicker">순직 센티넬 추모기간</p><h2 id="memorialPopupTitle">故 박재민 센티넬 3주기</h2><p class="memorial-popup-text">국민의 안전을 위해 임무를 수행하다 순직한 센티넬을 기억합니다.</p><p class="memorial-popup-sub">추모공간에서는 순직 센티넬의 기록과 국민들의 추모글을 열람할 수 있습니다.</p><a href="#memorial" class="memorial-popup-go">추모공간 보기&nbsp; →</a><button type="button" class="memorial-popup-today">오늘 하루 보지 않기</button></div></div>';
-  document.body.appendChild(o);
-  const close=()=>o.remove();o.querySelector('.mystery-close').onclick=close;
-  o.addEventListener('click',e=>{if(e.target===o)close()});
-  o.querySelector('.memorial-popup-go').addEventListener('click',close);
-  o.querySelector('.memorial-popup-today').addEventListener('click',()=>{localStorage.setItem('ssa_memorial_popup_hide_date',new Date().toISOString().slice(0,10));close();});
- }
+ function homePopup(){ /* Anniversary popup intentionally disabled. */ }
  function run(){addGuestbook();homePopup();}
  window.addEventListener('hashchange',()=>setTimeout(run,120));
  setTimeout(run,700);
