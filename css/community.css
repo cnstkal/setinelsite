@@ -57,3 +57,11 @@
 .header-top .header-search{margin-left:auto;width:min(380px,40%);background:#fff!important}
 .header-top .header-search .search-form{width:100%;margin:0}
 .header-top .util{display:none}
+
+/* ===== 메뉴 간격 균등: 좌우 끝(☰)까지 꽉 채움 ===== */
+@media(min-width:1101px){
+  .main-nav .nav-inner{width:100%;max-width:none;display:flex;align-items:stretch;justify-content:space-between;padding:0;margin:0}
+  .main-nav .nav-item{flex:1 1 0;display:flex;min-width:0;justify-content:center}
+  .main-nav .nav-trigger{flex:1 1 auto;padding:0 6px;text-align:center;font-size:16px}
+  .main-nav .all-menu{flex:0 0 62px;margin-left:0}
+}
