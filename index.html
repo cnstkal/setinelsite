@@ -616,6 +616,7 @@ nav.util .au-name{font-size:13px;margin-right:4px}
 .search-form{border:2px solid #0d2b4e}
 .search-form button{background:#0d2b4e;color:#fff}
 /* 직원 채팅 */
+.pf-main{flex:1;min-width:0}.pf-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}.pf-head h1{margin:0 0 4px;font-size:26px;color:#0d2b4e}.pf-head p{margin:0;color:#667;font-size:14px}.pf-btn{border:1px solid #cfd6df;background:#fff;padding:10px 16px;cursor:pointer}.pf-card{background:#fff;border:1px solid #e3e8ef;padding:18px;margin-bottom:14px}.pf-card h3{margin:0 0 10px;font-size:16px;color:#0d2b4e}.pf-top{display:flex;gap:22px;flex-wrap:wrap}.pf-ph{width:160px;height:160px;background:linear-gradient(135deg,#1c2a3d,#4a5a70);color:#fff;font-size:60px;display:flex;align-items:center;justify-content:center}.pf-info{flex:1;min-width:240px}.pf-info h2{margin:0 0 8px;font-size:24px}.pf-info small{font-size:14px;color:#667;font-weight:400}.pf-ct{flex:1;min-width:240px;border-left:1px solid #e3e8ef;padding-left:22px}.pf-r{display:flex;gap:16px;padding:7px 0;font-size:14px}.pf-r span{width:90px;color:#667;flex-shrink:0}.pf-r b{font-weight:400}.pf-quick{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-bottom:14px}.pf-quick a{background:#fff;border:1px solid #e3e8ef;padding:14px;font-weight:700;color:#0d2b4e;display:block}.pf-quick small{display:block;font-weight:400;color:#667;margin-top:3px}.pf-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}.pf-cols .pf-r span{width:auto;flex:1}.pf-bd{background:#e33;color:#fff;border-radius:10px;padding:1px 7px;font-size:12px;font-style:normal}@media(max-width:800px){.pf-cols{grid-template-columns:1fr}.pf-ct{border:0;padding:0}}
 .st-layout{display:flex;gap:20px;max-width:1280px;margin:0 auto;padding:24px 16px;align-items:stretch}
 .st-side{width:230px;background:#fff;border:1px solid #e3e8ef;flex-shrink:0}
 .st-side .st-title{padding:20px;font-size:18px;font-weight:700;border-bottom:1px solid #e3e8ef;color:#0d2b4e}
@@ -724,12 +725,12 @@ function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&am
 var STAFF={'SSA-0001':'staff1234','SSA-0002':'staff1234','1234':'1234'};
 function me(){return J('ssa_auth',null)}
 function isStaff(){var m=me();return !!m && m.role==='staff'}
-var PAGES=['community','secret','staff-community','staff-chat'];
+var PAGES=['community','secret','staff-community','staff-chat','profile'];
 
 function util(){
   var u=$('#topBarLinks'); if(!u) return;
   var m=me();
-  u.innerHTML = m ? '<span>'+(m.name||m.id||'회원')+'님</span><a href="javascript:void(0)" data-au="logout">로그아웃</a>' : '<a href="javascript:void(0)" data-au="login">로그인</a><a href="javascript:void(0)" data-au="join">회원가입</a>';
+  u.innerHTML = m ? '<a href="#profile">'+(m.name||m.id||'회원')+'님</a><a href="javascript:void(0)" data-au="logout">로그아웃</a>' : '<a href="javascript:void(0)" data-au="login">로그인</a><a href="javascript:void(0)" data-au="join">회원가입</a>';
 }
 
 function menu(){
@@ -863,11 +864,29 @@ function drawChat(){
   }).join('');
   box.scrollTop=box.scrollHeight;
 }
+function profilePage(){
+  if($('#profile')) return;
+  var sec=document.createElement('section'); sec.className='page'; sec.id='profile';
+  var side=['내 프로필','내 소속 정보','근무 정보','교육·훈련 이력','자격 및 등록','공지 및 알림','보안 설정'].map(function(t,i){return '<a'+(i?'':' class="active"')+' href="javascript:void(0)">'+t+(t==='공지 및 알림'?' <i class="pf-bd">3</i>':'')+'</a>'}).join('');
+  var rows=function(a){return a.map(function(r){return '<div class="pf-r"><span>'+r[0]+'</span><b>'+r[1]+'</b></div>'}).join('')};
+  sec.innerHTML='<div class="breadcrumb"><div class="container"><a href="#home">홈</a><span>›</span><a href="javascript:void(0)">마이페이지</a><span>›</span><strong>내 프로필</strong></div></div>'
+  +'<div class="st-layout"><aside class="st-side"><div class="st-title">마이페이지</div>'+side+'</aside>'
+  +'<div class="pf-main"><div class="pf-head"><div><h1>내 프로필</h1><p>등록된 정보는 내부 행정 업무와 센티넬 제도 운영을 위해 사용됩니다.</p></div><button type="button" class="pf-btn" data-pf-edit>✎ 프로필 수정</button></div>'
+  +'<div class="pf-card pf-top"><div class="pf-ph">👤</div><div class="pf-info"><h2>박재민 <small data-pf-id></small></h2>'
+  +rows([['소속','수도권지부 제1대응팀'],['직급','센티넬 대원'],['근무 형태','정규직'],['입사일','2023. 03. 02.']])+'</div>'
+  +'<div class="pf-ct">'+rows([['사내 이메일','jaemin.park@ssa.go.kr'],['사내 연락처','02-710-1047'],['근무지','수도권지부 (서울특별시)']])+'</div></div>'
+  +'<div class="pf-quick"><a>근무 일정<small>이번 주 근무 일정 확인</small></a><a>교육·훈련 이력<small>이수한 교육 조회</small></a><a>자격 및 등록<small>센티넬 등록 정보 확인</small></a><a>보안 설정<small>비밀번호·2차 인증 관리</small></a></div>'
+  +'<div class="pf-cols"><div class="pf-card"><h3>내 소속 정보</h3>'+rows([['팀명','수도권지부 제1대응팀'],['팀장','이도현'],['팀원','총 8명'],['주요 업무','현장 대응, 센티넬 지원, 사고 조사']])+'</div>'
+  +'<div class="pf-card"><h3>최근 공지</h3>'+rows([['[안내] 현장 출동 시 개인 보호 규정 강화 안내','2026. 10. 21.'],['2026년 하반기 정기 교육 일정 안내','2026. 10. 20.'],['수도권지부 청사 출입 절차 변경 안내','2026. 10. 18.']])+'</div></div>'
+  +'<div class="pf-card"><h3>이번 주 근무 일정</h3>'+rows([['10. 21. (수)','주간 근무 · 09:00 - 18:00 · 수도권지부'],['10. 22. (목)','현장 지원 · 서울 강남구'],['10. 23. (금)','휴무']])+'</div></div></div>';
+  var f=$('footer'); f&&f.parentNode?f.parentNode.insertBefore(sec,f):document.body.appendChild(sec);
+}
+function pfFill(){var e=$('[data-pf-id]'),m=me(); if(e&&m) e.textContent=m.id||''}
 function pages(){
   cmPage('community','ssa_cm2','자유게시판','센티넬과 가이드, 그리고 일상에 관한 이야기를 나누는 공간입니다.',COMM_SIDE);
   cmPage('secret','ssa_secret','비밀게시판','로그인한 회원만 열람·작성할 수 있습니다.',SECRET_SIDE);
   cmPage('staff-community','ssa_scm2','직원 전용 커뮤니티','직원 로그인 회원만 열람·작성할 수 있습니다.',STAFF_SIDE);
-  chatPage();
+  chatPage(); profilePage();
 }
 function rowHtml(k,p,num){
   var n=p.n?'<span class="cm-n">['+p.n+']</span>':'';
@@ -954,7 +973,7 @@ function route(){
   if(h!=='community' && h!=='secret' && !isStaff()){ alert('직원 로그인 후 이용할 수 있습니다.'); location.hash='#home'; return; }
   $$('.page.active').forEach(function(p){p.classList.remove('active')});
   var t=$('#'+h); if(t) t.classList.add('active');
-  openPost=null; window.scrollTo(0,0); draw();
+  openPost=null; window.scrollTo(0,0); draw(); pfFill();
 }
 
 /* ---------- 로그인 모달 (스크린샷 디자인) ---------- */
