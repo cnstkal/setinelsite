@@ -753,6 +753,7 @@ function page(id,title,desc,body){
   $('#main').appendChild(s);
 }
 var SEED={
+  ssa_secret:[],
   ssa_cm2:[
     {id:1,pin:true,t:'[안내] 자유게시판 이용수칙 및 게시물 관리 기준',c:'욕설, 비방, 개인정보가 포함된 게시물은 사전 안내 없이 삭제될 수 있습니다.',a:'관리자',d:'2026.10.02',v:1204},
     {id:2,pin:true,t:'[안내] 개인정보 포함 게시물 작성 자제 요청',c:'이름, 연락처, 등록번호 등 개인정보는 게시물에 포함하지 마세요.',a:'관리자',d:'2026.10.01',v:892},
@@ -871,7 +872,7 @@ function pages(){
 function rowHtml(k,p,num){
   var n=p.n?'<span class="cm-n">['+p.n+']</span>':'';
   var no=num==='공지'?'<span class="cm-badge">공지</span>':num;
-  return '<tr class="cm-row'+(p.pin?' cm-pin':'')+'" data-open="'+k+'|'+p.id+'"><td>'+no+'</td><td class="cm-t">'+esc(p.t)+n+'</td><td>'+esc(p.a)+'</td><td>'+p.d+'</td><td>'+p.v+'</td></tr>';
+  return '<tr class="cm-row'+(p.pin?' cm-pin':'')+'" data-open="'+k+'|'+p.id+'"><td>'+no+'</td><td class="cm-t">'+esc(p.t)+n+'</td><td>'+esc(k==='ssa_secret'?'익명':p.a)+'</td><td>'+p.d+'</td><td>'+p.v+'</td></tr>';
 }
 var AV='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7b8794" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>';
 function stamp(){var d=new Date();return d.toISOString().slice(0,10).replace(/-/g,'.')+' '+d.toTimeString().slice(0,5);}
@@ -892,7 +893,7 @@ function cmDetailHtml(k,p){
   }).join('');
   return '<div class="cm-dtop"><b>자유게시판</b><button type="button" class="au-back" data-back>☰ 목록으로</button></div>'
     +'<h2 class="cm-dtitle">'+esc(p.t)+'</h2>'
-    +'<div class="cm-dmeta"><span class="cm-av">'+AV+'</span><b>'+esc(p.a)+'</b><span>'+p.d+'</span><i>|</i><span>조회 '+p.v+'</span><i>|</i><span>댓글 '+cnt+'</span></div>'
+    +'<div class="cm-dmeta"><span class="cm-av">'+AV+'</span><b>'+esc(k==='ssa_secret'?'익명':p.a)+'</b><span>'+p.d+'</span><i>|</i><span>조회 '+p.v+'</span><i>|</i><span>댓글 '+cnt+'</span></div>'
     +'<div class="cm-dbody">'+esc(p.c).replace(/\n/g,'<br>')+'</div>'
     +'<div class="cm-dact"><button type="button" class="cm-like'+(liked?' on':'')+'" data-like="'+k+'|'+p.id+'">추천 '+(p.like||0)+'</button><a class="cm-report" data-lg-info>신고</a></div>'
     +'<div class="cm-chead">댓글 '+cnt+'</div>'
@@ -910,7 +911,7 @@ function cmSideHtml(k,all,cur){
     +'<div class="cm-rbox"><h4>실시간 인기글</h4>'+hot.map(function(p,i){return item(p,i)}).join('')+'</div>';
 }
 function draw(){
-  ['ssa_cm2','ssa_scm2'].forEach(function(k){
+  ['ssa_cm2','ssa_secret','ssa_scm2'].forEach(function(k){
     var root=$('[data-board="'+k+'"]'); if(!root) return;
     var all=postsOf(k);
     var today=new Date().toISOString().slice(0,10).replace(/-/g,'.');
@@ -950,7 +951,6 @@ function draw(){
 function route(){
   var h=location.hash.slice(1).split('?')[0];
   if(PAGES.indexOf(h)<0) return;
-  if(h==='secret' && !me()){ alert('로그인 후 이용할 수 있습니다.'); location.hash='#community'; return; }
   if(h!=='community' && h!=='secret' && !isStaff()){ alert('직원 로그인 후 이용할 수 있습니다.'); location.hash='#home'; return; }
   $$('.page.active').forEach(function(p){p.classList.remove('active')});
   var t=$('#'+h); if(t) t.classList.add('active');
@@ -1068,7 +1068,7 @@ document.addEventListener('submit',function(e){
     if(!me()){ modal('login'); return; }
     var msgc=String(new FormData(f).get('m')||'').trim(); if(!msgc) return;
     var cp=ck.split('|'), cmts=cmtsOf(cp[0],cp[1]);
-    cmts.push({a:me().name,m:msgc,d:stamp(),like:0});
+    cmts.push({a:(cp[0]==='ssa_secret'?'익명':me().name),m:msgc,d:stamp(),like:0});
     S('ssa_cmt_'+cp[0]+'|'+cp[1],cmts);
     var pp=postsOf(cp[0]); pp.forEach(function(x){ if(String(x.id)===cp[1]) x.n=(x.n||cmts.length-1)+1; });
     S(cp[0],pp); f.reset(); draw(); return;
@@ -1080,7 +1080,7 @@ document.addEventListener('submit',function(e){
     e.preventDefault();
     var m=me(); if(!m) return alert('로그인 후 작성할 수 있습니다.');
     var d2={}; new FormData(f).forEach(function(v,kk){d2[kk]=v});
-    var p=postsOf(k); p.unshift({id:Date.now(),t:d2.t,c:d2.c,a:m.name,d:new Date().toISOString().slice(0,10).replace(/-/g,'.'),v:0});
+    var p=postsOf(k); p.unshift({id:Date.now(),t:d2.t,c:d2.c,a:(k==='ssa_secret'?'익명':m.name),d:new Date().toISOString().slice(0,10).replace(/-/g,'.'),v:0});
     S(k,p); f.reset(); f.parentNode.hidden=true; draw(); return;
   }
   if(f.id==='auChatForm'){
