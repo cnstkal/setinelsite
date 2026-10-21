@@ -724,7 +724,7 @@ function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&am
 var STAFF={'SSA-0001':'staff1234','SSA-0002':'staff1234'};
 function me(){return J('ssa_auth',null)}
 function isStaff(){var m=me();return !!m && m.role==='staff'}
-var PAGES=['community','staff-community','staff-chat'];
+var PAGES=['community','secret','staff-community','staff-chat'];
 
 function util(){
   var u=$('nav.util'); if(!u) return;
@@ -734,8 +734,7 @@ function util(){
 
 function menu(){
   $$('.au-item,.au-mob').forEach(function(e){e.remove()});
-  var L=[['community','자유게시판']];
-  if(isStaff()) L.push(['staff-community','직원 전용 커뮤니티'],['staff-chat','직원 전용 채팅']);
+  var L=[['community','자유게시판'],['secret','비밀게시판']];
   var html=L.map(function(x){return '<a href="#'+x[0]+'">'+x[1]+'</a>'}).join('');
   var t=$$('.nav-trigger').filter(function(b){return b.textContent.trim()==='알림마당'})[0];
   if(t && t.closest('.nav-item')){
@@ -777,7 +776,8 @@ function postsOf(k){
   return v;
 }
 var openPost=null, searchQ={}, pageState={};
-var COMM_SIDE='<a class="active" href="#community">자유게시판</a><a href="#notice">공지사항</a><a href="#faq">자주 묻는 질문</a><a href="#guidance">이용 안내</a>';
+var COMM_SIDE='<a class="active" href="#community">자유게시판</a><a href="#secret">비밀게시판</a>';
+var SECRET_SIDE='<a href="#community">자유게시판</a><a class="active" href="#secret">비밀게시판</a>';
 var STAFF_SIDE='<a class="active" href="#staff-community">직원 커뮤니티</a><a href="#staff-chat">직원 채팅</a><a href="#notice">공지사항</a><a href="#rules">업무 자료실</a>';
 function board(k){
   return '<div data-board="'+k+'">'
@@ -864,6 +864,7 @@ function drawChat(){
 }
 function pages(){
   cmPage('community','ssa_cm2','자유게시판','센티넬과 가이드, 그리고 일상에 관한 이야기를 나누는 공간입니다.',COMM_SIDE);
+  cmPage('secret','ssa_secret','비밀게시판','로그인한 회원만 열람·작성할 수 있습니다.',SECRET_SIDE);
   cmPage('staff-community','ssa_scm2','직원 전용 커뮤니티','직원 로그인 회원만 열람·작성할 수 있습니다.',STAFF_SIDE);
   chatPage();
 }
@@ -949,7 +950,8 @@ function draw(){
 function route(){
   var h=location.hash.slice(1).split('?')[0];
   if(PAGES.indexOf(h)<0) return;
-  if(h!=='community' && !isStaff()){ alert('직원 로그인 후 이용할 수 있습니다.'); location.hash='#home'; return; }
+  if(h==='secret' && !me()){ alert('로그인 후 이용할 수 있습니다.'); location.hash='#community'; return; }
+  if(h!=='community' && h!=='secret' && !isStaff()){ alert('직원 로그인 후 이용할 수 있습니다.'); location.hash='#home'; return; }
   $$('.page.active').forEach(function(p){p.classList.remove('active')});
   var t=$('#'+h); if(t) t.classList.add('active');
   openPost=null; window.scrollTo(0,0); draw();
