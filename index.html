@@ -25,7 +25,6 @@
 <script src="./js/mystery.js?v=20261004-17" defer></script>
 <style>.chief-mark,.org-leader-photo,.sentinel-detail-photo,.sentinel-photo,.apostle-photo{cursor:pointer}.official-photo-save-bar{display:none!important}</style>
 <link rel="stylesheet" href="./css/community.css?v=20261021">
-<script src="./js/auth-nav.js?v=1" defer></script>
 <style>#adminModeBtn,#adminModeBtnMobile,.admin-edit-btn,.adm-bar,[data-admin-mode],.admin-mode-control{display:none!important}</style>
 </head>
 <body>
@@ -561,5 +560,167 @@
 <script src="./js/lightbox.js?v=20261004-refactor"></script>
 <script src="./js/live-crisis.js?v=20261004-live"></script>
 <script src="./js/community.js?v=20261021"></script>
+<style>
+nav.util{display:flex;gap:6px;align-items:center;margin-left:auto}
+nav.util button{border:1px solid #cfd8e3;background:#fff;border-radius:6px;padding:6px 12px;font-size:13px;cursor:pointer}
+nav.util .au-name{font-size:13px;margin-right:4px}
+.au-item:hover .mega,.au-item.au-open .mega{display:block}
+.au-ov{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;display:flex;align-items:center;justify-content:center}
+.au-ov form{background:#fff;padding:24px;border-radius:10px;width:min(340px,90vw);display:grid;gap:10px}
+.au-ov h3{margin:0 0 4px}
+.au-ov input,.au-box input,.au-box textarea{padding:9px;border:1px solid #cfd8e3;border-radius:6px;font:inherit;width:100%;box-sizing:border-box}
+.au-box form{display:grid;gap:8px;margin-bottom:16px}
+.au-list article{border-bottom:1px solid #e3e8ef;padding:12px 4px}
+.au-list p{margin:4px 0}.au-list small{color:#68798b}
+.au-chat{height:360px;overflow:auto;border:1px solid #e3e8ef;border-radius:8px;padding:12px;margin-bottom:10px}
+.au-chat div{margin-bottom:8px}.au-chat small{color:#68798b;margin-left:6px}
+#auChatForm{display:flex;gap:8px}
+</style>
+<script>
+(function(){
+var $=function(s,r){return (r||document).querySelector(s)};
+var $$=function(s){return Array.prototype.slice.call(document.querySelectorAll(s))};
+function J(k,d){try{var v=JSON.parse(localStorage.getItem(k));return v==null?d:v}catch(e){return d}}
+function S(k,v){localStorage.setItem(k,JSON.stringify(v))}
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+// 직원 계정 (사번: 비밀번호) — 여기서 추가/수정
+var STAFF={'SSA-0001':'staff1234','SSA-0002':'staff1234'};
+function me(){return J('ssa_auth',null)}
+function isStaff(){var m=me();return !!m && m.role==='staff'}
+var PAGES=['community','staff-community','staff-chat'];
+
+function util(){
+  var u=$('nav.util'); if(!u) return;
+  var m=me();
+  u.innerHTML = m
+    ? '<span class="au-name">'+esc(m.name)+'님</span><button type="button" data-au="logout">로그아웃</button>'
+    : '<button type="button" data-au="login">로그인</button><button type="button" data-au="staff">직원 로그인</button><button type="button" data-au="join">회원가입</button>';
+}
+
+function links(){
+  var L=[['community','자유게시판']];
+  if(isStaff()) L.push(['staff-community','직원 전용 커뮤니티'],['staff-chat','직원 전용 채팅']);
+  return L;
+}
+
+function menu(){
+  $$('.au-item,.au-mob').forEach(function(e){e.remove()});
+  var L=links();
+  var html=L.map(function(x){return '<a href="#'+x[0]+'">'+x[1]+'</a>'}).join('');
+  var t=$$('.nav-trigger').filter(function(b){return b.textContent.trim()==='알림마당'})[0];
+  if(t && t.closest('.nav-item')){
+    t.closest('.nav-item').insertAdjacentHTML('afterend',
+      '<div class="nav-item au-item"><button class="nav-trigger" aria-expanded="false">커뮤니티</button><div class="mega"><div class="mega-inner"><div class="mega-title">커뮤니티<small>COMMUNITY</small></div><div class="mega-links">'+html+'</div></div></div></div>');
+  }
+  var d=$$('.mobile-panel-list summary').filter(function(s){return s.textContent.trim()==='알림마당'})[0];
+  if(d) d.parentElement.insertAdjacentHTML('afterend','<details class="au-mob"><summary>커뮤니티</summary><div>'+html+'</div></details>');
+}
+
+function page(id,title,desc,body){
+  if($('#'+id)) return;
+  var s=document.createElement('section');
+  s.className='page'; s.id=id;
+  s.innerHTML='<div class="breadcrumb"><div class="container"><a href="#home">홈</a><span>›</span><strong>'+title+'</strong></div></div><div class="container pg-wrap"><div class="content-head"><h1>'+title+'</h1><p>'+desc+'</p></div>'+body+'</div>';
+  $('#main').appendChild(s);
+}
+function board(k){
+  return '<div class="au-box"><form data-bd="'+k+'"><input name="t" placeholder="제목" required><textarea name="c" rows="3" placeholder="내용" required></textarea><button class="rp-btn primary">등록</button></form><div class="au-list" data-list="'+k+'"></div></div>';
+}
+function pages(){
+  page('community','자유게시판','누구나 볼 수 있습니다. 글쓰기는 로그인 후 가능합니다.',board('ssa_cm'));
+  page('staff-community','직원 전용 커뮤니티','직원 로그인 회원만 열람·작성할 수 있습니다.',board('ssa_scm'));
+  page('staff-chat','직원 전용 채팅','직원 간 내부 채팅입니다.','<div class="au-box"><div class="au-chat" id="auChat"></div><form id="auChatForm"><input name="m" placeholder="메시지 입력" autocomplete="off" required><button class="rp-btn primary">전송</button></form></div>');
+}
+function draw(){
+  ['ssa_cm','ssa_scm'].forEach(function(k){
+    var l=$('[data-list="'+k+'"]'); if(!l) return;
+    var posts=J(k,[]);
+    l.innerHTML = posts.length ? posts.map(function(p){return '<article><b>'+esc(p.t)+'</b><p>'+esc(p.c)+'</p><small>'+esc(p.a)+' · '+p.d+'</small></article>'}).join('') : '<p>게시글이 없습니다.</p>';
+  });
+  var c=$('#auChat');
+  if(c){ c.innerHTML=J('ssa_chat',[]).map(function(m){return '<div><b>'+esc(m.a)+'</b><small>'+m.d+'</small><br>'+esc(m.m)+'</div>'}).join(''); c.scrollTop=c.scrollHeight; }
+}
+
+function route(){
+  var h=location.hash.slice(1).split('?')[0];
+  if(PAGES.indexOf(h)<0) return;
+  if(h!=='community' && !isStaff()){ alert('직원 로그인 후 이용할 수 있습니다.'); location.hash='#home'; return; }
+  $$('.page.active').forEach(function(p){p.classList.remove('active')});
+  var t=$('#'+h); if(t) t.classList.add('active');
+  window.scrollTo(0,0); draw();
+}
+
+function modal(t){
+  var T={login:'로그인',staff:'직원 로그인',join:'회원가입'}[t];
+  document.body.insertAdjacentHTML('beforeend',
+    '<div class="au-ov"><form data-auf="'+t+'"><h3>'+T+'</h3>'
+    +'<input name="id" placeholder="'+(t==='staff'?'직원 사번 (예: SSA-0001)':'아이디')+'" required>'
+    +(t==='join'?'<input name="name" placeholder="이름(닉네임)" required>':'')
+    +'<input name="pw" type="password" placeholder="비밀번호" required>'
+    +'<button class="rp-btn primary">'+T+'</button><button type="button" class="rp-btn" data-au="close">취소</button></form></div>');
+}
+function closeModal(){$$('.au-ov').forEach(function(e){e.remove()})}
+
+function refresh(){
+  util(); menu(); pages();
+  if(!isStaff() && /^#staff-/.test(location.hash)) location.hash='#home';
+  route();
+}
+
+document.addEventListener('click',function(e){
+  var btn=e.target.closest('[data-au]');
+  var a=btn && btn.getAttribute('data-au');
+  if(a==='logout'){ localStorage.removeItem('ssa_auth'); closeModal(); refresh(); }
+  else if(a==='close'){ closeModal(); }
+  else if(a){ modal(a); }
+  var tr=e.target.closest('.au-item .nav-trigger');
+  $$('.au-item').forEach(function(n){ n.classList.toggle('au-open', !!tr && n===tr.parentElement && !n.classList.contains('au-open')); });
+  if(e.target.closest('.au-item .mega a')) $$('.au-item').forEach(function(n){n.classList.remove('au-open')});
+});
+
+document.addEventListener('submit',function(e){
+  var f=e.target, t=f.getAttribute('data-auf');
+  if(t){
+    e.preventDefault();
+    var d={}; new FormData(f).forEach(function(v,k){d[k]=v});
+    var u=J('ssa_users',{});
+    if(t==='join'){
+      if(u[d.id]) return alert('이미 사용 중인 아이디입니다.');
+      u[d.id]={pw:d.pw,name:d.name}; S('ssa_users',u);
+      alert('가입이 완료되었습니다. 로그인해 주세요.');
+      closeModal(); modal('login'); return;
+    }
+    if(t==='login'){
+      var x=u[d.id];
+      if(!x || x.pw!==d.pw) return alert('아이디 또는 비밀번호가 올바르지 않습니다.');
+      S('ssa_auth',{id:d.id,name:x.name,role:'user'});
+    } else {
+      if(STAFF[d.id]!==d.pw) return alert('사번 또는 비밀번호가 올바르지 않습니다.');
+      S('ssa_auth',{id:d.id,name:'직원 '+d.id,role:'staff'});
+    }
+    closeModal(); refresh(); return;
+  }
+  var k=f.getAttribute('data-bd');
+  if(k){
+    e.preventDefault();
+    var m=me(); if(!m) return alert('로그인 후 작성할 수 있습니다.');
+    var d2={}; new FormData(f).forEach(function(v,kk){d2[kk]=v});
+    var p=J(k,[]); p.unshift({t:d2.t,c:d2.c,a:m.name,d:new Date().toLocaleString('ko-KR')});
+    S(k,p); f.reset(); draw(); return;
+  }
+  if(f.id==='auChatForm'){
+    e.preventDefault();
+    if(!isStaff()) return;
+    var msg=new FormData(f).get('m');
+    var q=J('ssa_chat',[]); q.push({m:msg,a:me().name,d:new Date().toLocaleTimeString('ko-KR')});
+    S('ssa_chat',q.slice(-200)); f.reset(); draw();
+  }
+});
+
+window.addEventListener('hashchange',route);
+window.addEventListener('storage',draw);
+refresh();
+})();
+</script>
 </body>
 </html>
