@@ -721,7 +721,7 @@ function J(k,d){try{var v=JSON.parse(localStorage.getItem(k));return v==null?d:v
 function S(k,v){localStorage.setItem(k,JSON.stringify(v))}
 function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
 // 직원 계정 (사번: 비밀번호) — 여기서 추가/수정
-var STAFF={'SSA-0001':'staff1234','SSA-0002':'staff1234'};
+var STAFF={'SSA-0001':'staff1234','SSA-0002':'staff1234','1234':'1234'};
 function me(){return J('ssa_auth',null)}
 function isStaff(){var m=me();return !!m && m.role==='staff'}
 var PAGES=['community','secret','staff-community','staff-chat'];
